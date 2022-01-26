@@ -1,0 +1,2 @@
+@24onoff:registry=https://24onoff-v2.bytesafe.dev/r/default
+//24onoff-v2.bytesafe.dev/r/:_authToken=${NPM_TOKEN}

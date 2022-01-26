@@ -1,0 +1,72 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: node:12
+
+pipelines:
+  pull-requests:
+    '**':
+      - step:
+          name: Lint
+          caches:
+            - node
+          script:
+            - mv .npmrc_config .npmrc
+            - npm i
+            - npm run lint
+      - step:
+          name: Test
+          caches:
+            - node
+          script:
+            - mv .npmrc_config .npmrc
+            - npm i
+            - npm run test
+          artifacts:
+            - report/**
+      - step:
+          name: Build
+          caches:
+            - node
+          script:
+            - mv .npmrc_config .npmrc
+            - npm i
+            - npm run build
+  branches:
+    master:
+      - step:
+          name: Lint
+          caches:
+            - node
+          script:
+            - mv .npmrc_config .npmrc
+            - npm i
+            - npm run lint
+      - step:
+          name: Test
+          caches:
+            - node
+          script:
+            - mv .npmrc_config .npmrc
+            - npm i
+            - npm run test
+          artifacts:
+            - report/**
+      - step:
+          name: Build
+          caches:
+            - node
+          script:
+            - mv .npmrc_config .npmrc
+            - npm i
+            - npm run build
+      - step:
+          name: Publish
+          script:
+            # new tag/version should be added manually before pushing/merging into master
+            - mv .npmrc_config .npmrc
+            - npm i
+            - npm run build
+            - npm publish
